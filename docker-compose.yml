@@ -1,0 +1,21 @@
+services:
+    db:
+        container_name: kanban-postgres
+        image: postgres:9.4.26-alpine
+        restart: always
+        shm_size: 128mb
+        environment:
+            POSTGRES_USER: kanban
+            POSTGRES_PASSWORD: kanban_facilit
+        ports:
+            - 5432:5432
+        volumes:
+            - kanban-postgres-data:/var/lib/postgres/data
+        networks:
+            - kanban-network
+
+volumes:
+    kanban-postgres-data:
+
+networks:
+    kanban-network:

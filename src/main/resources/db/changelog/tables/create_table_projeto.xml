@@ -1,0 +1,38 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext
+ 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+ 						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+ 
+	<changeSet author="ecoloma" id="createTable-projeto" dbms="postgresql">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="projeto"/>
+			</not>
+		</preConditions>
+	
+    	<createTable schemaName="public" tableName="projeto">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" primaryKeyName="projeto_pk"/>
+			</column>
+			<column name="nome" type="varchar(255)"/>
+			<column name="status" type="varchar(255)"/>
+			<column name="inicio_previsto" type="timestamp"/>
+			<column name="termino_previsto" type="timestamp"/>
+			<column name="inicio_realizado" type="timestamp"/>
+			<column name="termino_realizado" type="timestamp"/>
+			<column name="dias_atraso" type="smallint"/>
+			<column name="tempo_restante" type="smallint"/>
+    	</createTable>
+    	
+    	<rollback>
+    		<dropTable tableName="projeto"/>
+    	</rollback>
+	</changeSet>
+</databaseChangeLog>

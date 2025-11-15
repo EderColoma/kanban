@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext
+ 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+ 						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">	
+	
+	<changeSet author="ecoloma" id="addPrimaryKey-projeto_responsavel_pk">
+		<preConditions onFail="MARK_RAN">
+			<not>
+        		<indexExists indexName="projeto_responsavel_pk" tableName="projeto_responsavel"/>
+        	</not>
+   		</preConditions>
+	
+	    <addPrimaryKey columnNames="projeto_id, responsavel_id"
+	            constraintName="projeto_responsavel_pk"
+	            schemaName="public"
+	            tableName="projeto_responsavel"/>
+	            
+		<rollback>
+			 <dropPrimaryKey constraintName="projeto_responsavel_pk"
+            				 dropIndex="true"
+            				 schemaName="public"
+            				 tableName="projeto_responsavel"/>
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

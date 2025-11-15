@@ -1,0 +1,31 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext
+ 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+ 						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+	<changeSet author="ecoloma" id="createSequence-seq_projeto">
+		<preConditions onFail="MARK_RAN">
+		    <not>
+		        <sequenceExists schemaName="public" sequenceName="seq_projeto"/>
+		    </not>
+		</preConditions>
+	
+		<createSequence cacheSize="1"
+			            cycle="false"
+			            incrementBy="1"
+			            minValue="1"
+			            schemaName="public"
+			            sequenceName="seq_projeto"
+			            startValue="1"/>
+		<rollback>
+			<dropSequence schemaName="public" sequenceName="seq_projeto"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

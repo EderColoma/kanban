@@ -1,0 +1,40 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext
+ 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+ 						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+						
+	<changeSet author="ecoloma" id="createTable-projeto_responsavel" dbms="postgresql">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="projeto_responsavel"/>
+			</not>
+		</preConditions>
+	
+    	<createTable schemaName="public" tableName="projeto_responsavel">
+			<column name="projeto_id" type="bigint">
+				<constraints foreignKeyName="projeto_responsavel_projeto_fk"
+					         referencedTableSchemaName="public"
+					         referencedTableName="projeto"
+					         referencedColumnNames="id"/>
+			</column>
+			<column name="responsavel_id" type="bigint">
+				<constraints foreignKeyName="projeto_responsavel_responsavel_fk"
+					         referencedTableSchemaName="public"
+					         referencedTableName="responsavel"
+					         referencedColumnNames="id"/>
+			</column>
+    	</createTable>
+    	
+    	<rollback>
+    		<dropTable tableName="projeto_responsavel"/>
+    	</rollback>
+	</changeSet>
+	
+</databaseChangeLog>
