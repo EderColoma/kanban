@@ -21,10 +21,10 @@
 	            AND constraint_type = 'CHECK';
 	        </sqlCheck>
    		</preConditions>
-   		
+
         <sql>
             ALTER TABLE public.projeto
-            ADD CONSTRAINT projeto_status_ck CHECK (status IN ('INICIAR', 'ANDAMENTO', 'ATRASADO', 'CONCLUIDO'));
+            ADD CONSTRAINT projeto_status_ck CHECK (status IN ('A_INICIAR', 'EM_ANDAMENTO', 'ATRASADO', 'CONCLUIDO'));
         </sql>
     </changeSet>
 
