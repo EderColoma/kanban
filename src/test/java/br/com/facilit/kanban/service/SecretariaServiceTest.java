@@ -16,8 +16,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.facilit.kanban.dto.SecretariaDTO;
-import br.com.facilit.kanban.dto.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.request.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.shared.SecretariaDTO;
 import br.com.facilit.kanban.mapper.SecretariaMapper;
 import br.com.facilit.kanban.model.Secretaria;
 import br.com.facilit.kanban.repository.SecretariaRepository;
@@ -37,14 +37,36 @@ class SecretariaServiceTest {
 	private SecretariaService secretariaService;
 
 	@Test
-	void findById_Should_ReturnASecretariaDTO_When_ASecretariaWithTheGivenIdWasFound() {
+	void findById_Should_ReturnASecretaria_When_ASecretariaWithTheGivenIdWasFound() {
+		final Secretaria secretaria = new Secretaria(1L, "Secretaria");
+
+		when(secretariaRepository.findById(anyLong())).thenReturn(Optional.of(secretaria));
+
+		final Optional<Secretaria> optionalSecretaria = secretariaService.findById(1L);
+
+		assertTrue(optionalSecretaria.isPresent());
+		assertEquals(Long.valueOf(1), optionalSecretaria.get().getId());
+		assertEquals("Secretaria", optionalSecretaria.get().getNome());
+	}
+
+	@Test
+	void findById_Should_ReturnEmpty_When_NoSecretariaWasFound() {
+		when(secretariaRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+		final Optional<Secretaria> optionalSecretaria = secretariaService.findById(1L);
+
+		assertTrue(optionalSecretaria.isEmpty());
+	}
+
+	@Test
+	void findDTOById_Should_ReturnASecretariaDTO_When_ASecretariaWithTheGivenIdWasFound() {
 		final Secretaria secretaria = new Secretaria(1L, "Secretaria");
 		final SecretariaDTO secretariaDTO = new SecretariaDTO(1L, "Secretaria");
 
 		when(secretariaRepository.findById(anyLong())).thenReturn(Optional.of(secretaria));
 		when(secretariaMapper.toDTO(any(Secretaria.class))).thenReturn(secretariaDTO);
 
-		final Optional<SecretariaDTO> optionalSecretariaDTO = secretariaService.findById(1L);
+		final Optional<SecretariaDTO> optionalSecretariaDTO = secretariaService.findDTOById(1L);
 
 		assertTrue(optionalSecretariaDTO.isPresent());
 		assertEquals(Long.valueOf(1), optionalSecretariaDTO.get().getId());
@@ -52,10 +74,10 @@ class SecretariaServiceTest {
 	}
 
 	@Test
-	void findById_Should_ReturnEmpty_When_NoSecretariaWasFound() {
+	void findDTOById_Should_ReturnEmpty_When_NoSecretariaWasFound() {
 		when(secretariaRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-		final Optional<SecretariaDTO> optionalSecretariaDTO = secretariaService.findById(1L);
+		final Optional<SecretariaDTO> optionalSecretariaDTO = secretariaService.findDTOById(1L);
 
 		assertTrue(optionalSecretariaDTO.isEmpty());
 	}

@@ -3,8 +3,8 @@ package br.com.facilit.kanban.mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import br.com.facilit.kanban.dto.SecretariaDTO;
-import br.com.facilit.kanban.dto.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.request.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.shared.SecretariaDTO;
 import br.com.facilit.kanban.model.Secretaria;
 import lombok.RequiredArgsConstructor;
 
@@ -14,15 +14,15 @@ public class SecretariaMapper {
 
 	private final ModelMapper modelMapper;
 
-	public SecretariaDTO toDTO(Secretaria secretaria) {
+	public SecretariaDTO toDTO(final Secretaria secretaria) {
 		return modelMapper.map(secretaria, SecretariaDTO.class);
 	}
 
-	public Secretaria toEntity(SecretariaDTO secretariaDTO) {
+	public Secretaria toEntity(final SecretariaDTO secretariaDTO) {
 		return modelMapper.map(secretariaDTO, Secretaria.class);
 	}
 
-	public Secretaria toEntity(SecretariaUpdateDTO secretariaUpdateDTO) {
+	public Secretaria toEntity(final SecretariaUpdateDTO secretariaUpdateDTO) {
 		return modelMapper.map(secretariaUpdateDTO, Secretaria.class);
 	}
 }

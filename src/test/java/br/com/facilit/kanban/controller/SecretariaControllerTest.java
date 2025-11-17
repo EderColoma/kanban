@@ -24,8 +24,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.facilit.kanban.dto.SecretariaDTO;
-import br.com.facilit.kanban.dto.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.request.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.shared.SecretariaDTO;
 import br.com.facilit.kanban.model.Secretaria;
 import br.com.facilit.kanban.service.SecretariaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -50,7 +50,7 @@ class SecretariaControllerTest {
 
 		final String endpoint = URL + "/1";
 
-		when(secretariaService.findById(1L)).thenReturn(Optional.of(new SecretariaDTO(1L, "Secretaria")));
+		when(secretariaService.findDTOById(1L)).thenReturn(Optional.of(new SecretariaDTO(1L, "Secretaria")));
 
 		try {
 			mockMvc.perform(get(endpoint))
@@ -67,7 +67,7 @@ class SecretariaControllerTest {
 
 		final String endpoint = URL + "/1";
 
-		when(secretariaService.findById(1L)).thenReturn(Optional.empty());
+		when(secretariaService.findDTOById(1L)).thenReturn(Optional.empty());
 
 		try {
 			mockMvc.perform(get(endpoint)).andExpect(status().isNoContent());
@@ -108,7 +108,7 @@ class SecretariaControllerTest {
 
 	@Test
 	void update_Should_ReturnOk_WhenUpdatingASecretaria() {
-		when(secretariaService.findById(1L)).thenReturn(Optional.of(new SecretariaDTO(1L, "Secretaria")));
+		when(secretariaService.findDTOById(1L)).thenReturn(Optional.of(new SecretariaDTO(1L, "Secretaria")));
 		doNothing().when(secretariaService).update(any(SecretariaUpdateDTO.class));
 
 		try {

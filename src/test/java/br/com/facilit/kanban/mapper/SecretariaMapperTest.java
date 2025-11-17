@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.facilit.kanban.dto.SecretariaDTO;
-import br.com.facilit.kanban.dto.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.request.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.shared.SecretariaDTO;
 import br.com.facilit.kanban.model.Secretaria;
 
 @ExtendWith(SpringExtension.class)

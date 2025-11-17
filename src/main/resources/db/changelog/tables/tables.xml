@@ -16,4 +16,5 @@
 	<include file="db/changelog/tables/add_projeto_status_check_constraint.xml"/>
 	<include file="db/changelog/tables/create_table_projeto_responsavel.xml"/>
 	<include file="db/changelog/tables/add_projeto_responsavel_primary_key.xml"/>
+	<include file="db/changelog/tables/add_responsavel_email_unique_constraint.xml"/>
 </databaseChangeLog>

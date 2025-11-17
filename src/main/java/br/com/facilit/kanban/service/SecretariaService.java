@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.facilit.kanban.dto.SecretariaDTO;
-import br.com.facilit.kanban.dto.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.request.SecretariaUpdateDTO;
+import br.com.facilit.kanban.dto.shared.SecretariaDTO;
 import br.com.facilit.kanban.mapper.SecretariaMapper;
 import br.com.facilit.kanban.model.Secretaria;
 import br.com.facilit.kanban.repository.SecretariaRepository;
@@ -19,7 +19,11 @@ public class SecretariaService {
 	private final SecretariaMapper secretariaMapper;
 	private final SecretariaRepository secretariaRepository;
 
-	public Optional<SecretariaDTO> findById(Long id) {
+	public Optional<Secretaria> findById(Long id) {
+		 return secretariaRepository.findById(id);
+	}
+
+	public Optional<SecretariaDTO> findDTOById(Long id) {
 		 return secretariaRepository.findById(id).map(secretariaMapper::toDTO);
 	}
 

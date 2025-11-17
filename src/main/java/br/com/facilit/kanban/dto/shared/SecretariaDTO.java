@@ -1,7 +1,6 @@
-package br.com.facilit.kanban.dto;
+package br.com.facilit.kanban.dto.shared;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SecretariaUpdateDTO {
+public class SecretariaDTO {
 
-	@NotNull(message = "ID é obrigatório")
 	private Long id;
 
 	@NotBlank(message = "Nome é obrigatório")
