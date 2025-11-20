@@ -123,7 +123,7 @@ class ResponsavelControllerTest {
     }
 
 	@Test
-	void create_Should_ReturnOk_When_CreatingASecretaria() {
+	void create_Should_ReturnOk_When_CreatingAResponsavel() {
 		final Secretaria secretaria = new Secretaria(2L, "Secretaria");
 		final Responsavel responsavel = new Responsavel(1L, "Responsavel", "responsavel@facilit.com", "Product Owner", secretaria);
 

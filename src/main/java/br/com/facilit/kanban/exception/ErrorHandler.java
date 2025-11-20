@@ -8,25 +8,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @ControllerAdvice
 public class ErrorHandler {
 
+	private static final String ERROR = "erros";
+
 	@ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGeneric(final Exception ex) {
-        return status(INTERNAL_SERVER_ERROR).body(Map.of("errors", Map.of("server", "Unexpected server error")));
+        return status(INTERNAL_SERVER_ERROR).body(Map.of(ERROR, Map.of("servidor", "Erro inesperado no servidor")));
     }
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+    public ResponseEntity<?> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex) {
+        final Map<String, String> errors = new HashMap<>();
 
         ex.getBindingResult().getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
 
-        return badRequest().body(Map.of("errors", errors));
+        return badRequest().body(Map.of(ERROR, errors));
+    }
+
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, Object>> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex) {
+        return badRequest().body(Map.of(ERROR, "O corpo da requisição está ausente."));
+    }
+
+	@ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntityNotFoundException(final Exception ex) {
+		return badRequest().body(Map.of(ERROR, ex.getMessage()));
     }
 
 }

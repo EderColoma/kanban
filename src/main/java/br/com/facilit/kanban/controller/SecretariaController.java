@@ -42,7 +42,7 @@ public class SecretariaController {
 
 	@PutMapping
 	public ResponseEntity<Void> update(@Valid @RequestBody final SecretariaUpdateDTO secretariaUpdateDTO) {
-	    try {
+		try {
 	    	secretariaService.update(secretariaUpdateDTO);
 	    } catch (final EntityNotFoundException _) {
 	    	return ResponseEntity.badRequest().build();

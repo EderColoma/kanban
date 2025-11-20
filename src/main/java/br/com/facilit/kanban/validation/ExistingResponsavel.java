@@ -1,0 +1,25 @@
+package br.com.facilit.kanban.validation;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
+@Documented
+@Target({FIELD})
+@Retention(RUNTIME)
+@Constraint(validatedBy = ExistingResponsavelValidator.class)
+public @interface ExistingResponsavel {
+
+	String message() default "Um ou mais responsáveis informados não existem";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+}

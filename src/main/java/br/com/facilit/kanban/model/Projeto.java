@@ -17,6 +17,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Builder
 @Table(name = "projeto")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -65,4 +67,5 @@ public class Projeto {
                joinColumns = @JoinColumn(name = "projeto_id"),
                inverseJoinColumns = @JoinColumn(name = "responsavel_id"))
     private Set<Responsavel> responsaveis;
+
 }
