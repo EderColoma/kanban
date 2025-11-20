@@ -7,6 +7,7 @@ import static org.springframework.http.ResponseEntity.status;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -44,4 +45,10 @@ public class ErrorHandler {
 		return badRequest().body(Map.of(ERROR, ex.getMessage()));
     }
 
+	@ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleDataIntegrity(final DataIntegrityViolationException ex) {
+        final String message = "Operação não permitida: o registro está sendo usado em um relacionamento.";
+
+        return badRequest().body(Map.of(ERROR, message));
+    }
 }
