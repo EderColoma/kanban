@@ -19,24 +19,24 @@ public class SecretariaService {
 	private final SecretariaMapper secretariaMapper;
 	private final SecretariaRepository secretariaRepository;
 
-	public Optional<Secretaria> findById(Long id) {
+	public Optional<Secretaria> findById(final Long id) {
 		 return secretariaRepository.findById(id);
 	}
 
-	public Optional<SecretariaDTO> findDTOById(Long id) {
+	public Optional<SecretariaDTO> findDTOById(final Long id) {
 		 return secretariaRepository.findById(id).map(secretariaMapper::toDTO);
 	}
 
-	public Secretaria save(SecretariaDTO secretariaDTO) {
+	public Secretaria save(final SecretariaDTO secretariaDTO) {
 	    return secretariaRepository.save(secretariaMapper.toEntity(secretariaDTO));
 	}
 
-	public void update(SecretariaUpdateDTO secretariaUpdateDTO) throws EntityNotFoundException {
+	public void update(final SecretariaUpdateDTO secretariaUpdateDTO) throws EntityNotFoundException {
 		secretariaRepository.findById(secretariaUpdateDTO.getId()).orElseThrow(() -> new EntityNotFoundException("Secretaria não encontrada"));
 	    secretariaRepository.save(secretariaMapper.toEntity(secretariaUpdateDTO));
 	}
 
-	public void delete(Long id) {
+	public void delete(final Long id) {
 	    secretariaRepository.deleteById(id);
 	}
 

@@ -1,9 +1,17 @@
 package br.com.facilit.kanban.model;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
+import static lombok.AccessLevel.NONE;
+
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -18,9 +26,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "responsavel")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "responsavel")
+@EntityListeners(AuditingEntityListener.class)
 public class Responsavel {
 
 	@Id
@@ -41,5 +50,23 @@ public class Responsavel {
 	@ManyToOne
 	@JoinColumn(name = "secretaria_id")
 	private Secretaria secretaria;
+
+	@Setter(NONE)
+	@CreatedDate
+	@Column(name = "created_at", updatable = false)
+	private LocalDateTime createdAt;
+
+	@Setter(NONE)
+	@LastModifiedDate
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
+
+	public Responsavel(final Long id, final String nome, final String email, final String cargo, final Secretaria secretaria) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.cargo = cargo;
+		this.secretaria = secretaria;
+	}
 
 }

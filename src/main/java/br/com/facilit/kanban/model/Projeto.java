@@ -2,12 +2,19 @@ package br.com.facilit.kanban.model;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.SEQUENCE;
+import static lombok.AccessLevel.NONE;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -26,9 +33,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Table(name = "projeto")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "projeto")
+@EntityListeners(AuditingEntityListener.class)
 public class Projeto {
 
 	@Id
@@ -67,5 +75,28 @@ public class Projeto {
                joinColumns = @JoinColumn(name = "projeto_id"),
                inverseJoinColumns = @JoinColumn(name = "responsavel_id"))
     private Set<Responsavel> responsaveis;
+
+	@Setter(NONE)
+	@CreatedDate
+	@Column(name = "created_at", updatable = false)
+	private LocalDateTime createdAt;
+
+	@Setter(NONE)
+	@LastModifiedDate
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
+
+	public Projeto(final Long id, final String nome, final Status status, final LocalDate inicioPrevisto, final LocalDate terminoPrevisto, final LocalDate inicioRealizado, final LocalDate terminoRealizado, final Integer diasAtraso, final Integer percentualTempoRestante, final Set<Responsavel> responsaveis) {
+		this.id = id;
+		this.nome = nome;
+		this.status = status;
+		this.inicioPrevisto = inicioPrevisto;
+		this.terminoPrevisto = terminoPrevisto;
+		this.inicioRealizado = inicioRealizado;
+		this.terminoRealizado = terminoRealizado;
+		this.diasAtraso = diasAtraso;
+		this.percentualTempoRestante = percentualTempoRestante;
+		this.responsaveis = responsaveis;
+	}
 
 }

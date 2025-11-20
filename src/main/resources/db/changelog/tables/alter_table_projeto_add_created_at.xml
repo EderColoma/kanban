@@ -1,0 +1,32 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+						http://www.liquibase.org/xml/ns/dbchangelog-ext
+ 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+ 						http://www.liquibase.org/xml/ns/pro
+						http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+						
+	<changeSet author="ecoloma" id="alterTable-projeto-add-created_at" dbms="postgresql">
+		<preConditions onFail="CONTINUE">
+			<tableExists tableName="projeto"/>
+			<not>
+				<columnExists tableName="projeto" columnName="created_at"/>
+			</not>
+		</preConditions>
+	
+    	<addColumn tableName="projeto">
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false" notNullConstraintName="projeto_created_at_not_null_ck"/>
+            </column>
+        </addColumn>
+    	
+    	<rollback>
+    		<dropColumn tableName="projeto" columnName="created_at"/>
+    	</rollback>
+	</changeSet>
+
+</databaseChangeLog>

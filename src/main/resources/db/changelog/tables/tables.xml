@@ -17,4 +17,10 @@
 	<include file="db/changelog/tables/create_table_projeto_responsavel.xml"/>
 	<include file="db/changelog/tables/add_projeto_responsavel_primary_key.xml"/>
 	<include file="db/changelog/tables/add_responsavel_email_unique_constraint.xml"/>
+	<include file="db/changelog/tables/alter_table_secretaria_add_created_at.xml"/>
+	<include file="db/changelog/tables/alter_table_secretaria_add_updated_at.xml"/>
+	<include file="db/changelog/tables/alter_table_responsavel_add_created_at.xml"/>
+	<include file="db/changelog/tables/alter_table_responsavel_add_updated_at.xml"/>
+	<include file="db/changelog/tables/alter_table_projeto_add_created_at.xml"/>
+	<include file="db/changelog/tables/alter_table_projeto_add_updated_at.xml"/>
 </databaseChangeLog>
