@@ -1,0 +1,615 @@
+{
+	"info": {
+		"_postman_id": "02a10b88-d6dc-4fcb-95ca-a2b661c74879",
+		"name": "Kanban",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5500092"
+	},
+	"item": [
+		{
+			"name": "Secretaria",
+			"item": [
+				{
+					"name": "Find secretaria by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/secretaria/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"secretaria",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create secretaria",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Secretaria\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/secretaria",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"secretaria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update secretaria",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Secretaria\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/secretaria",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"secretaria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete secretaria by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/secretaria/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"secretaria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Responsável",
+			"item": [
+				{
+					"name": "Find responsável by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/responsavel/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"responsavel",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all responsáveis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/responsavel?page=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"responsavel"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create responsável",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Responsavel\",\r\n    \"email\":\"responsavel@facilit.com\",\r\n    \"cargo\":\"Product Owner\",\r\n    \"secretariaId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/responsavel",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"responsavel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update responsável",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Responsavel\",\r\n    \"email\":\"responsavel@facilit.com.uk\",\r\n    \"cargo\":\"Product Owner\",\r\n    \"secretariaId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/responsavel",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"responsavel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete responsável",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/responsavel/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"responsavel",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projeto",
+			"item": [
+				{
+					"name": "Find projeto by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/projeto/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all projetos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/projeto?page=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create projeto - A Iniciar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-12-2025\",\r\n    \"terminoPrevisto\":\"01-01-2026\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create projeto - Em andamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-10-2025\",\r\n    \"terminoPrevisto\":\"01-01-2026\",\r\n    \"inicioRealizado\":\"15-12-2025\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create projeto - Atrasado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-12-2024\",\r\n    \"terminoPrevisto\":\"15-06-2025\",\r\n    \"inicioRealizado\":\"01-12-2024\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create projeto - Concluído",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-12-2024\",\r\n    \"terminoPrevisto\":\"15-06-2025\",\r\n    \"inicioRealizado\":\"01-12-2024\",\r\n    \"terminoRealizado\":\"15-06-2025\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update projeto - A Iniciar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-12-2025\",\r\n    \"terminoPrevisto\":\"01-01-2026\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update projeto - Em andamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-10-2025\",\r\n    \"terminoPrevisto\":\"01-01-2026\",\r\n    \"inicioRealizado\":\"15-12-2025\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update projeto - Atrasado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-10-2025\",\r\n    \"terminoPrevisto\":\"15-11-2025\",\r\n    \"inicioRealizado\":\"01-10-2025\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update projeto - Concluído",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"nome\":\"Projeto\",\r\n    \"inicioPrevisto\":\"01-12-2024\",\r\n    \"terminoPrevisto\":\"15-06-2025\",\r\n    \"inicioRealizado\":\"01-12-2024\",\r\n    \"terminoRealizado\":\"15-06-2025\",\r\n    \"responsaveisIds\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projeto",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete projeto by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/projeto/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projeto",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kanban",
+			"item": [
+				{
+					"name": "Find by status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/kanban/:status?page=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"kanban",
+								":status"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "CONCLUIDO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transit status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/kanban/:id/status?status=EM_ANDAMENTO",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"kanban",
+								":id",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "EM_ANDAMENTO"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
