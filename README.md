@@ -33,6 +33,19 @@ http://localhost:8080/api-docs
 # Como Rodar os Testes
 `mvn test`
 
+# Como Rodar o Projeto
+Na raiz do projeto, onde está o Dockerfile
+
+`docker compose build`
+
+Rodar em segundo plano:
+
+`docker compose up -d`
+
+Finalizar a execução
+
+`docker compose down`
+
 # Estrutura de Pacotes
 
 src/<br>
