@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -51,4 +52,15 @@ public class ErrorHandler {
 
         return badRequest().body(Map.of(ERROR, message));
     }
+
+	@ExceptionHandler(StatusTransitionException.class)
+    public ResponseEntity<Object> handleStatusTransitionException(final Exception ex) {
+		return badRequest().body(Map.of(ERROR, ex.getMessage()));
+    }
+
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<Object> handleMissingServletRequestParameterException(final Exception ex) {
+		return badRequest().body(Map.of(ERROR, ex.getMessage()));
+    }
+
 }

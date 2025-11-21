@@ -1,13 +1,22 @@
 package br.com.facilit.kanban.service;
 
+import static br.com.facilit.kanban.model.Status.ATRASADO;
+import static br.com.facilit.kanban.model.Status.A_INICIAR;
+import static br.com.facilit.kanban.model.Status.CONCLUIDO;
 import static br.com.facilit.kanban.model.Status.EM_ANDAMENTO;
 import static java.time.LocalDate.now;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,11 +38,13 @@ import org.springframework.data.domain.Pageable;
 import br.com.facilit.kanban.dto.request.ProjetoCreationDTO;
 import br.com.facilit.kanban.dto.request.ProjetoUpdateDTO;
 import br.com.facilit.kanban.dto.response.ProjetoDTO;
+import br.com.facilit.kanban.exception.StatusTransitionException;
 import br.com.facilit.kanban.mapper.ProjetoMapper;
 import br.com.facilit.kanban.model.Projeto;
 import br.com.facilit.kanban.model.Responsavel;
 import br.com.facilit.kanban.repository.ProjetoRepository;
 import br.com.facilit.kanban.service.status.strategy.ProjetoStatusCalculator;
+import br.com.facilit.kanban.service.status.transition.StatusTransition;
 import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,6 +61,9 @@ class ProjetoServiceTest {
 
 	@Mock
 	private ResponsavelService responsavelService;
+
+	@Mock
+	private StatusTransition statusTransition;
 
     @Autowired
 	@InjectMocks
@@ -235,5 +249,127 @@ class ProjetoServiceTest {
 			assertFalse(true);
 		}
 	}
+
+    @Test
+    void transitionStatus_Should_ThrowException_When_ProjectNotFound() {
+        when(projetoRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> projetoService.transitStatus(1L, EM_ANDAMENTO));
+    }
+
+    @Test
+    void transitionStatus_Should_DoNothing_WhenStatusIsTheSame() {
+    	final Projeto projeto = new Projeto();
+        projeto.setStatus(EM_ANDAMENTO);
+
+        when(projetoRepository.findById(10L)).thenReturn(Optional.of(projeto));
+
+        Projeto changedProjeto;
+		try {
+			changedProjeto = projetoService.transitStatus(10L, EM_ANDAMENTO);
+			assertSame(projeto, changedProjeto);
+		} catch (final StatusTransitionException _) {
+			fail();
+		}
+
+    }
+
+    @Test
+    void transitionStatus_Should_ChangeSuccessfully() {
+    	final Projeto projeto = new Projeto();
+        projeto.setStatus(EM_ANDAMENTO);
+
+        try {
+
+	        when(projetoRepository.findById(10L)).thenReturn(Optional.of(projeto));
+	        when(projetoRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+	        doNothing().when(statusTransition).validate(projeto, CONCLUIDO);
+	        final Projeto result = projetoService.transitStatus(10L, CONCLUIDO);
+
+	        assertEquals(CONCLUIDO, result.getStatus());
+	        assertNotNull(result.getTerminoRealizado());
+        } catch (final StatusTransitionException _) {
+			fail();
+		}
+    }
+
+    @Test
+    void transitionStatus_Should_ThrowException_When_ValidatorBlocksTransition() {
+    	final Projeto projeto = new Projeto();
+        projeto.setStatus(EM_ANDAMENTO);
+
+        when(projetoRepository.findById(10L)).thenReturn(Optional.of(projeto));
+        try {
+			doThrow(new StatusTransitionException("Transição proibida")).when(statusTransition).validate(any(), any());
+		} catch (final StatusTransitionException _) {
+			fail();
+		}
+
+        assertThrows(StatusTransitionException.class, () -> projetoService.transitStatus(10L, CONCLUIDO));
+    }
+
+    @Test
+    void transitionStatus_Should_SetInicioRealizado_When_GoingToEmAndamento() {
+    	final Projeto projeto = new Projeto();
+        projeto.setStatus(A_INICIAR);
+
+        when(projetoRepository.findById(10L)).thenReturn(Optional.of(projeto));
+        when(projetoRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        try {
+			doNothing().when(statusTransition).validate(any(), any());
+
+			final Projeto result = projetoService.transitStatus(10L, EM_ANDAMENTO);
+
+	        assertEquals(EM_ANDAMENTO, result.getStatus());
+	        assertNotNull(result.getInicioRealizado());
+		} catch (final StatusTransitionException _) {
+			fail();
+		}
+    }
+
+
+    @Test
+    void transitionStatus_Should_ClearDates_When_ReturningToAIniciar() {
+        final Projeto projeto = new Projeto();
+        projeto.setStatus(EM_ANDAMENTO);
+        projeto.setInicioRealizado(now());
+        projeto.setTerminoRealizado(now());
+
+        when(projetoRepository.findById(10L)).thenReturn(Optional.of(projeto));
+        when(projetoRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        try {
+			doNothing().when(statusTransition).validate(any(), any());
+
+			final Projeto result = projetoService.transitStatus(10L, A_INICIAR);
+
+	        assertNull(result.getInicioRealizado());
+	        assertNull(result.getTerminoRealizado());
+		} catch (final StatusTransitionException _) {
+			fail();
+		}
+    }
+
+    @Test
+    void transitionStatus_Should_ClearTerminoRealizado_When_GoingToAtrasado() {
+        final Projeto projeto = new Projeto();
+        projeto.setStatus(EM_ANDAMENTO);
+        projeto.setInicioRealizado(now());
+        projeto.setTerminoRealizado(now());
+
+        when(projetoRepository.findById(10L)).thenReturn(Optional.of(projeto));
+        when(projetoRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        try {
+			doNothing().when(statusTransition).validate(any(), any());
+
+			final Projeto result = projetoService.transitStatus(10L, ATRASADO);
+
+	        assertNull(result.getTerminoRealizado());
+		} catch (final StatusTransitionException _) {
+			fail();
+		}
+    }
 
  }
