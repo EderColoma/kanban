@@ -44,7 +44,7 @@ public class SecretariaController {
 	public ResponseEntity<Void> update(@Valid @RequestBody final SecretariaUpdateDTO secretariaUpdateDTO) {
 		try {
 	    	secretariaService.update(secretariaUpdateDTO);
-	    } catch (final EntityNotFoundException _) {
+	    } catch (final EntityNotFoundException e) {
 	    	return ResponseEntity.badRequest().build();
 	    }
 

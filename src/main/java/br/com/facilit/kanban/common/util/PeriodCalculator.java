@@ -1,6 +1,6 @@
 package br.com.facilit.kanban.common.util;
 
-import static java.lang.Math.clamp;
+import static java.lang.Math.max;
 import static java.time.LocalDate.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.isNull;
@@ -40,7 +40,7 @@ public class PeriodCalculator {
         }
 
         final long percent = (daysRemaining * 100) / totalDays;
-        return clamp(percent, 0, 100);
+        return (int) max(percent, Math.min(0, 100));
     }
 
 }

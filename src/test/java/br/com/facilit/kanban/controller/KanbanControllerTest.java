@@ -33,7 +33,7 @@ import br.com.facilit.kanban.model.Status;
 import br.com.facilit.kanban.service.ProjetoService;
 
 @WebMvcTest(KanbanController.class)
-public class KanbanControllerTest {
+class KanbanControllerTest {
 
 	@MockitoBean
 	private ProjetoService projetoService;
@@ -58,7 +58,7 @@ public class KanbanControllerTest {
 	        mockMvc.perform(patch(endpoint)
 	                        .param("status", "CONCLUIDO"))
 	                .andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
     }
@@ -74,7 +74,7 @@ public class KanbanControllerTest {
 	        mockMvc.perform(patch(endpoint)
 	                        .param("status", "CONCLUIDO"))
 	                .andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
     }
@@ -106,7 +106,7 @@ public class KanbanControllerTest {
 	                .andExpect(jsonPath("$.content[0].id").value(1L))
 	                .andExpect(jsonPath("$.content[0].nome").value("Projeto"))
 	                .andExpect(jsonPath("$.totalElements").value(1));
-        } catch (final Exception _) {
+        } catch (final Exception e) {
 			fail();
 		}
     }

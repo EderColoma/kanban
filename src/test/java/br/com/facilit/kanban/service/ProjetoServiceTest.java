@@ -245,7 +245,7 @@ class ProjetoServiceTest {
 		try {
 			projetoService.delete(1L);
 			assertTrue(true);
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			assertFalse(true);
 		}
 	}
@@ -268,7 +268,7 @@ class ProjetoServiceTest {
 		try {
 			changedProjeto = projetoService.transitStatus(10L, EM_ANDAMENTO);
 			assertSame(projeto, changedProjeto);
-		} catch (final StatusTransitionException _) {
+		} catch (final StatusTransitionException e) {
 			fail();
 		}
 
@@ -288,7 +288,7 @@ class ProjetoServiceTest {
 
 	        assertEquals(CONCLUIDO, result.getStatus());
 	        assertNotNull(result.getTerminoRealizado());
-        } catch (final StatusTransitionException _) {
+        } catch (final StatusTransitionException e) {
 			fail();
 		}
     }
@@ -301,7 +301,7 @@ class ProjetoServiceTest {
         when(projetoRepository.findById(10L)).thenReturn(Optional.of(projeto));
         try {
 			doThrow(new StatusTransitionException("Transição proibida")).when(statusTransition).validate(any(), any());
-		} catch (final StatusTransitionException _) {
+		} catch (final StatusTransitionException e) {
 			fail();
 		}
 
@@ -323,7 +323,7 @@ class ProjetoServiceTest {
 
 	        assertEquals(EM_ANDAMENTO, result.getStatus());
 	        assertNotNull(result.getInicioRealizado());
-		} catch (final StatusTransitionException _) {
+		} catch (final StatusTransitionException e) {
 			fail();
 		}
     }
@@ -346,7 +346,7 @@ class ProjetoServiceTest {
 
 	        assertNull(result.getInicioRealizado());
 	        assertNull(result.getTerminoRealizado());
-		} catch (final StatusTransitionException _) {
+		} catch (final StatusTransitionException e) {
 			fail();
 		}
     }
@@ -367,7 +367,7 @@ class ProjetoServiceTest {
 			final Projeto result = projetoService.transitStatus(10L, ATRASADO);
 
 	        assertNull(result.getTerminoRealizado());
-		} catch (final StatusTransitionException _) {
+		} catch (final StatusTransitionException e) {
 			fail();
 		}
     }

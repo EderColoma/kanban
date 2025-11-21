@@ -53,7 +53,7 @@ public class ResponsavelController {
 	public ResponseEntity<Void> update(@Valid @RequestBody final ResponsavelUpdateDTO responsavelUpdateDTO) {
 		try {
 	    	responsavelService.update(responsavelUpdateDTO);
-	    } catch (final EntityNotFoundException _) {
+	    } catch (final EntityNotFoundException e) {
 	    	return ResponseEntity.badRequest().build();
 	    }
 

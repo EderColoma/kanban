@@ -110,7 +110,7 @@ class SecretariaServiceTest {
 		try {
 			secretariaService.update(secretariaUpdateDTO);
 			assertTrue(true);
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			assertFalse(true);
 		}
 	}
@@ -126,7 +126,7 @@ class SecretariaServiceTest {
 			assertFalse(true);
 		} catch (final EntityNotFoundException e) {
 			assertEquals("Secretaria não encontrada", e.getMessage());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			assertFalse(true);
 		}
 	}
@@ -136,7 +136,7 @@ class SecretariaServiceTest {
 		try {
 			secretariaService.delete(1L);
 			assertTrue(true);
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			assertFalse(true);
 		}
 	}

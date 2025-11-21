@@ -47,7 +47,7 @@ public class PeriodValidator implements ConstraintValidator<Period, Object> {
                 return false;
             }
 
-        } catch (final Exception _) {
+        } catch (final Exception e) {
             return false;
         }
 

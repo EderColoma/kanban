@@ -52,7 +52,7 @@ public class ProjetoController {
     public ResponseEntity<Void> update(@Valid @RequestBody final ProjetoUpdateDTO projetoUpdateDTO) {
     	try {
     		projetoService.update(projetoUpdateDTO);
-	    } catch (final EntityNotFoundException _) {
+	    } catch (final EntityNotFoundException e) {
 	    	return ResponseEntity.badRequest().build();
 	    }
 

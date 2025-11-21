@@ -85,7 +85,7 @@ class ProjetoControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(1))
 				.andExpect(jsonPath("$.nome").value("Projeto"));
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -99,7 +99,7 @@ class ProjetoControllerTest {
 
 		try {
 			mockMvc.perform(get(endpoint)).andExpect(status().isNoContent());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -129,7 +129,7 @@ class ProjetoControllerTest {
 	                .andExpect(jsonPath("$.content[0].id").value(1L))
 	                .andExpect(jsonPath("$.content[0].nome").value("Projeto"))
 	                .andExpect(jsonPath("$.totalElements").value(1));
-        } catch (final Exception _) {
+        } catch (final Exception e) {
 			fail();
 		}
     }
@@ -523,7 +523,7 @@ class ProjetoControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -536,7 +536,7 @@ class ProjetoControllerTest {
 
 		try {
 			mockMvc.perform(delete(endpoint)).andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}

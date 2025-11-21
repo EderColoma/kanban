@@ -57,7 +57,7 @@ class SecretariaControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(1))
 				.andExpect(jsonPath("$.nome").value("Secretaria"));
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -71,7 +71,7 @@ class SecretariaControllerTest {
 
 		try {
 			mockMvc.perform(get(endpoint)).andExpect(status().isNoContent());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -87,7 +87,7 @@ class SecretariaControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -101,7 +101,7 @@ class SecretariaControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -118,7 +118,7 @@ class SecretariaControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -132,7 +132,7 @@ class SecretariaControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -146,7 +146,7 @@ class SecretariaControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -162,7 +162,7 @@ class SecretariaControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -175,7 +175,7 @@ class SecretariaControllerTest {
 
 		try {
 			mockMvc.perform(delete(endpoint)).andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}

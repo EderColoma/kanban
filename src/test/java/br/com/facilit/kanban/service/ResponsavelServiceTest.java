@@ -191,7 +191,7 @@ class ResponsavelServiceTest {
         try {
         	responsavelService.update(responsavelUpdateDTO);
 			assertTrue(true);
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			assertFalse(true);
 		}
     }
@@ -220,7 +220,7 @@ class ResponsavelServiceTest {
 		try {
 			responsavelService.delete(1L);
 			assertTrue(true);
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			assertFalse(true);
 		}
 	}

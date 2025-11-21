@@ -20,7 +20,7 @@ public class DateValidator {
         try {
             parse(date, formatter);
             return true;
-        } catch (final Exception _) {
+        } catch (final Exception e) {
             return false;
         }
     }

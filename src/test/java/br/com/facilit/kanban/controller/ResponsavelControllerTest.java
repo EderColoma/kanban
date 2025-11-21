@@ -77,7 +77,7 @@ class ResponsavelControllerTest {
 				.andExpect(jsonPath("$.cargo").value("Product Owner"))
 				.andExpect(jsonPath("$.secretaria.id").value(2))
 				.andExpect(jsonPath("$.secretaria.nome").value("Secretaria"));
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -91,7 +91,7 @@ class ResponsavelControllerTest {
 
 		try {
 			mockMvc.perform(get(endpoint)).andExpect(status().isNoContent());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -117,7 +117,7 @@ class ResponsavelControllerTest {
 					.andExpect(jsonPath("$.content[0].secretaria.id").value(2))
 					.andExpect(jsonPath("$.content[0].secretaria.nome").value("Secretaria"))
 	                .andExpect(jsonPath("$.totalElements").value(1));
-        } catch (final Exception _) {
+        } catch (final Exception e) {
 			fail();
 		}
     }
@@ -138,7 +138,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -153,7 +153,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -168,7 +168,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -204,7 +204,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -222,7 +222,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -240,7 +240,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -258,7 +258,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -273,7 +273,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -288,7 +288,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -303,7 +303,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -318,7 +318,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -338,7 +338,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -356,7 +356,7 @@ class ResponsavelControllerTest {
 				   .contentType(APPLICATION_JSON)
 				   .content(jsonRequestBody))
 				.andExpect(status().isBadRequest());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
@@ -369,7 +369,7 @@ class ResponsavelControllerTest {
 
 		try {
 			mockMvc.perform(delete(endpoint)).andExpect(status().isOk());
-		} catch (final Exception _) {
+		} catch (final Exception e) {
 			fail();
 		}
 	}
