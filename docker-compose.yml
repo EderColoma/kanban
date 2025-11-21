@@ -1,21 +1,53 @@
 services:
-    db:
-        container_name: kanban-postgres
-        image: postgres:9.4.26-alpine
-        restart: always
-        shm_size: 128mb
-        environment:
-            POSTGRES_USER: kanban
-            POSTGRES_PASSWORD: kanban_facilit
-        ports:
-            - 5432:5432
-        volumes:
-            - kanban-postgres-data:/var/lib/postgres/data
-        networks:
-            - kanban-network
+  db:
+    container_name: kanban-postgres
+    image: postgres:15-alpine
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_DB: kanban
+      POSTGRES_USER: kanban
+      POSTGRES_PASSWORD: kanban_facilit
+    ports:
+      - "5432:5432"
+    volumes:
+      - kanban-postgres-data:/var/lib/postgresql/data
+    networks:
+      - kanban-network
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kanban"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  api:
+    image: kanban-api
+    container_name: kanban-api
+    restart: always
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/kanban
+      SPRING_DATASOURCE_USERNAME: kanban
+      SPRING_DATASOURCE_PASSWORD: kanban_facilit
+
+    networks:
+      - kanban-network
 
 volumes:
-    kanban-postgres-data:
+  kanban-postgres-data:
 
 networks:
-    kanban-network:
+  kanban-network:
